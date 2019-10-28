@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'/>
+    <title>Update a feature in realtime</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no'/>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet'/>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div id='map'></div>
+
+<script src='//d3js.org/d3.v3.min.js' charset='utf-8'></script>
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiY2hhbmFuZWwiLCJhIjoiY2syYXZ1cjI2MG1sMTNibWowbGc1Y2RyYiJ9.4L4WugJuIROsqG6UpYhdfg';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/light-v10',
+        zoom: 0
+    });
+
+    map.on('load', function () {
+        d3.json('http://localhost:8080/map-data', function (err, data) {
+            map.addSource('trace', {type: 'geojson', data: data});
+            map.addLayer({
+                "id": "points",
+                "type": "symbol",
+                "source": "trace",
+                "layout": {
+                    "icon-image": "{icon}-15",
+                    "text-field": "{title}",
+                    "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+                    "text-offset": [0, 0.6],
+                    "text-anchor": "top"
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
