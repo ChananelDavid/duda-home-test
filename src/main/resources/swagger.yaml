@@ -1,0 +1,141 @@
+swagger: "2.0"
+info:
+  description: "duda home test"
+  version: "1.0.0"
+  title: "duda home test"
+host: "localhost"
+basePath: "/"
+
+schemes:
+  - "http"
+
+paths:
+  /pupil:
+    post:
+      summary: "Add a new pet to the store"
+      consumes:
+        - "application/json"
+        - "application/xml"
+      produces:
+        - "application/xml"
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Pet object that needs to be added to the store"
+          required: true
+          schema:
+            $ref: "#/definitions/Pupil"
+      responses:
+        201:
+          schema:
+            type: integer
+            format: int64
+          description: "OK"
+        405:
+          description: "Invalid input"
+
+  /school:
+    post:
+      summary: "Add a new pet to the store"
+      consumes:
+        - "application/json"
+        - "application/xml"
+      produces:
+        - "application/xml"
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Pet object that needs to be added to the store"
+          required: true
+          schema:
+            $ref: '#/definitions/School'
+      responses:
+        201:
+          schema:
+            type: integer
+            format: int64
+          description: "OK"
+        405:
+          description: "Invalid input"
+  /setFriendShip/{firstPupilId}/{secondPupilId}:
+    post:
+      summary: "Add a new pet to the store"
+      consumes:
+        - "application/json"
+        - "application/xml"
+      produces:
+        - "application/xml"
+        - "application/json"
+      parameters:
+        - name: "firstPupilId"
+          in: "path"
+          description: "ID of pet to return"
+          required: true
+          type: "integer"
+          format: "int64"
+        - name: "secondPupilId"
+          in: "path"
+          description: "ID of pet to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+  /enroll/{pupilId}:
+    post:
+      summary: "Add a new pet to the store"
+      consumes:
+        - "application/json"
+        - "application/xml"
+      produces:
+        - "application/xml"
+        - "application/json"
+      parameters:
+        - name: "pupilId"
+          in: "path"
+          description: "ID of pet to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+
+definitions:
+  Pupil:
+    type: object
+    properties:
+      Lat:
+        type: number
+        format: double
+      Lon:
+        type: number
+        format: double
+      Grades:
+        $ref: "#/definitions/Grade"
+
+  Grade:
+    type: object
+    properties:
+      couseName:
+        type: string
+      grade:
+        type: integer
+
+  School:
+    type: object
+    properties:
+      Lat:
+        type: number
+        format: double
+      Lon:
+        type: number
+        format: double
+      minimumGpa:
+        type: integer
+      maxNumberOfPupils:
+        type: integer
+
